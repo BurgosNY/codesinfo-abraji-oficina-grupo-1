@@ -11,7 +11,7 @@ const regions:Region[] = [
   {id:"salvador",name:"Salvador",uf:"BA",court:"TJBA",x:69,y:49,values:{novos:577,pendentes:1482,julgados:469,baixados:321}},
   {id:"goiania",name:"Goiânia",uf:"GO",court:"TJGO",x:49,y:55,values:{novos:301,pendentes:803,julgados:244,baixados:198}},
   {id:"rio",name:"Rio de Janeiro",uf:"RJ",court:"TJRJ",x:65,y:72,values:{novos:693,pendentes:1810,julgados:540,baixados:421}},
-  {id:"sp",name:"São Paulo",uf:"SP",court:"TJSP",x:52,y:74,values:{novos:816,pendentes:2310,julgados:710,baixados:559}},
+  {id:"ms",name:"Mato Grosso do Sul",uf:"MS",court:"TJMS",x:43,y:67,values:{novos:238,pendentes:681,julgados:194,baixados:162}},
   {id:"porto-alegre",name:"Porto Alegre",uf:"RS",court:"TJRS",x:46,y:91,values:{novos:286,pendentes:734,julgados:250,baixados:208}},
   {id:"sem-dado",name:"Comarca demonstrativa sem cobertura",uf:"XX",court:"—",x:38,y:45,values:{novos:null,pendentes:null,julgados:null,baixados:null}},
 ];
@@ -31,7 +31,7 @@ export default function Home(){
   const ranked=useMemo(()=>[...numeric].sort((a,b)=>(b.values[metric]||0)-(a.values[metric]||0)),[metric]);
   return <main>
     <div className="demo-banner"><b>PROTÓTIPO FUNCIONAL</b><span>Todos os números e territórios são dados de exemplo — não representam estatísticas reais.</span></div>
-    <header><a className="brand" href="#">Justiça em mapa</a><nav><button onClick={()=>setMethod(true)}>Metodologia</button><span>Grupo 1 · Oficina Codesinfo</span></nav></header>
+    <header><a className="brand" href="#">Justiça Abrange</a><nav><button onClick={()=>setMethod(true)}>Metodologia</button><span>Grupo 1 · Oficina Codesinfo</span></nav></header>
     <section className="hero"><div><p className="eyebrow">VIOLÊNCIA DOMÉSTICA · JUSTIÇA BRASILEIRA</p><h1>Processos por comarca,<br/><em>sem apagar as lacunas.</em></h1><p>Uma demonstração de como dados agregados do DataJud poderão revelar concentração, estoque e movimentação territorial desde 2020.</p></div><div className="hero-stat"><small>TOTAL DO RECORTE</small><strong>{total.toLocaleString("pt-BR")}</strong><span>{labels[metric].toLowerCase()} · {period}</span></div></section>
     <section className="controls" aria-label="Filtros do mapa"><label>Indicador<select value={metric} onChange={e=>setMetric(e.target.value as Metric)}>{Object.entries(labels).map(([k,v])=><option value={k} key={k}>{v}</option>)}</select></label><label>Período<select value={period} onChange={e=>setPeriod(e.target.value)}>{periods.map(p=><option key={p}>{p}</option>)}</select></label><div className="segmented" aria-label="Modo do mapa"><button className={mode==="comarcas"?"active":""} onClick={()=>setMode("comarcas")}>Por comarca</button><button className={mode==="calor"?"active":""} onClick={()=>setMode("calor")}>Mapa de calor</button></div></section>
     <div className="dashboard">

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Justiça em mapa — protótipo",
+  title: "Justiça Abrange — protótipo",
   description: "Mapa demonstrativo de processos de violência doméstica por comarca.",
   icons: {
     icon: "/favicon.svg",
