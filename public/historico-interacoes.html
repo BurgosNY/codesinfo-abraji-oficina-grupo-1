@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.svg" />
+    <meta
+      name="description"
+      content="Histórico das interações do canal oficina-grupo-1 durante a Oficina Codesinfo–Abraji."
+    />
+    <title>Registro de interações no Slack — grupo 1</title>
+    <style>
+      :root {
+        --ink: #17211d;
+        --muted: #66716b;
+        --paper: #f2f0e9;
+        --surface: #fffef9;
+        --green: #164b3c;
+        --lime: #d5e65a;
+        --rust: #c95e3d;
+        --blue: #3366a8;
+        --line: #cbc9bf;
+        --soft-line: #dfddd4;
+        --shadow: 0 18px 50px rgba(23, 33, 29, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .masthead {
+        color: var(--ink);
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .masthead-bar,
+      .hero,
+      .page {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .masthead-bar {
+        padding: 24px 0 20px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .masthead-bar strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .masthead-bar span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .hero {
+        padding: 45px 0 48px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 13px;
+        font: 400 clamp(38px, 5vw, 58px) / 1.04 Georgia, "Times New Roman", serif;
+        letter-spacing: -0.035em;
+      }
+
+      .hero-intro {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 28px;
+        padding: 42px 0 80px;
+      }
+
+      .controls {
+        grid-column: 1 / -1;
+        padding: 13px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+
+      .search {
+        min-width: 220px;
+        flex: 1;
+        border: 1px solid var(--line);
+        background: #fff;
+        padding: 11px 13px;
+        color: var(--ink);
+        font: inherit;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .filter {
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        background: transparent;
+        padding: 8px 12px;
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 11px;
+      }
+
+      .filter:hover,
+      .filter:focus-visible {
+        border-color: var(--green);
+      }
+
+      .filter.active {
+        color: #fff;
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .timeline {
+        position: relative;
+        padding: 4px 0 0 46px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 12px;
+        bottom: 14px;
+        left: 14px;
+        width: 1px;
+        background: var(--line);
+      }
+
+      .phase {
+        position: relative;
+        margin: 12px 0 22px -46px;
+        padding-left: 46px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .phase::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 5px;
+        width: 13px;
+        height: 13px;
+        border: 2px solid var(--paper);
+        border-radius: 50%;
+        background: var(--rust);
+        box-shadow: 0 0 0 1px var(--rust);
+      }
+
+      .entry {
+        --accent: var(--green);
+        position: relative;
+        margin-bottom: 16px;
+        padding: 21px 22px 20px;
+        background: var(--surface);
+        border: 1px solid var(--soft-line);
+      }
+
+      .entry::before {
+        content: "";
+        position: absolute;
+        left: -39px;
+        top: 26px;
+        width: 12px;
+        height: 12px;
+        border: 3px solid var(--paper);
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+      }
+
+      .entry[data-kind="sistema"] {
+        --accent: #8c938f;
+        background: rgba(255, 254, 249, 0.7);
+      }
+
+      .entry[data-kind="teste"] {
+        --accent: var(--blue);
+      }
+
+      .entry[data-kind="proposta"] {
+        --accent: var(--rust);
+        border-left: 4px solid var(--rust);
+      }
+
+      .entry[data-author="Oficina Codex"] {
+        --accent: var(--blue);
+        border-left: 4px solid var(--blue);
+      }
+
+      .entry-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 13px;
+      }
+
+      .identity {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .avatar {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        color: #fff;
+        background: var(--accent);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .identity strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .role {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      time {
+        color: var(--muted);
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .entry-body {
+        color: #303b36;
+        font-size: 14px;
+      }
+
+      .entry-body p:last-child,
+      .entry-body ul:last-child {
+        margin-bottom: 0;
+      }
+
+      .entry-body ul {
+        padding-left: 20px;
+      }
+
+      .entry-body li + li {
+        margin-top: 5px;
+      }
+
+      code {
+        padding: 2px 6px;
+        color: #143c31;
+        background: #e9eee7;
+        border-radius: 3px;
+        font: 0.88em "SFMono-Regular", Consolas, monospace;
+      }
+
+      .entry-foot {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+
+      .permalink {
+        color: var(--green);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .permalink:hover,
+      .permalink:focus-visible {
+        text-decoration: underline;
+      }
+
+      .tag {
+        padding: 3px 7px;
+        border: 1px solid var(--soft-line);
+        border-radius: 99px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+      }
+
+      .side {
+        position: relative;
+      }
+
+      .side-inner {
+        position: sticky;
+        top: 96px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .card {
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+
+      .card h2 {
+        margin-bottom: 16px;
+        font: 400 25px / 1.08 Georgia, "Times New Roman", serif;
+        letter-spacing: -0.02em;
+      }
+
+      .decision-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .decision-list li {
+        padding: 12px 0 12px 19px;
+        border-top: 1px solid var(--soft-line);
+        position: relative;
+        font-size: 12px;
+      }
+
+      .decision-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 19px;
+        width: 7px;
+        height: 7px;
+        background: var(--lime);
+        border: 1px solid var(--green);
+        border-radius: 50%;
+      }
+
+      .status {
+        color: #fff;
+        background: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .status h2 {
+        color: #fff;
+      }
+
+      .status strong {
+        display: block;
+        margin-bottom: 8px;
+        font: 400 25px Georgia, "Times New Roman", serif;
+      }
+
+      .status p {
+        margin: 0;
+        color: #c8d8d1;
+        font-size: 12px;
+      }
+
+      .empty {
+        display: none;
+        padding: 36px;
+        color: var(--muted);
+        text-align: center;
+        background: var(--surface);
+        border: 1px dashed var(--line);
+      }
+
+      .source-note {
+        margin-top: 28px;
+        padding-top: 18px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        font-size: 11px;
+      }
+
+      footer {
+        padding: 26px 20px;
+        color: #b9c8c1;
+        background: var(--ink);
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 0.03em;
+      }
+
+      .entry[hidden],
+      .phase[hidden] {
+        display: none;
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          grid-template-columns: 1fr;
+        }
+
+        .controls {
+          position: static;
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .side-inner {
+          position: static;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 620px) {
+        .masthead-bar,
+        .hero,
+        .page {
+          width: min(100% - 28px, 1180px);
+        }
+
+        .masthead-bar {
+          padding: 20px 0 17px;
+        }
+
+        .hero {
+          padding: 34px 0 38px;
+        }
+
+        h1 {
+          font-size: 38px;
+        }
+
+        .timeline {
+          padding-left: 28px;
+        }
+
+        .timeline::before {
+          left: 6px;
+        }
+
+        .phase {
+          margin-left: -28px;
+          padding-left: 28px;
+        }
+
+        .phase::before {
+          left: 0;
+        }
+
+        .entry {
+          padding: 18px;
+        }
+
+        .entry::before {
+          left: -29px;
+        }
+
+        .entry-head {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .entry-foot {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .side-inner {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .masthead {
+          color: var(--ink);
+          background: #fff;
+          border-bottom: 2px solid var(--ink);
+        }
+
+        .masthead-bar span,
+        .hero-intro {
+          color: var(--ink);
+        }
+
+        .controls {
+          display: none;
+        }
+
+        .page {
+          display: block;
+          width: 100%;
+          padding: 28px 0;
+        }
+
+        .entry,
+        .card {
+          box-shadow: none;
+          break-inside: avoid;
+        }
+
+        .side {
+          margin: 28px 0 0 46px;
+        }
+
+        .side-inner {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .permalink {
+          text-decoration: none;
+        }
+
+        footer {
+          color: var(--ink);
+          background: #fff;
+          border-top: 1px solid var(--line);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead-bar">
+        <strong>Hackaton Codesinfo - 21º Congresso da Abraji</strong>
+        <span>Oficina de construção com IA - grupo 1</span>
+      </div>
+      <div class="hero">
+        <h1>Registro de interações no Slack</h1>
+        <p class="hero-intro">Canal <strong>#oficina-grupo-1</strong> · 31 de julho de 2026</p>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="controls" aria-label="Filtros do histórico">
+        <input
+          class="search"
+          id="search"
+          type="search"
+          placeholder="Buscar no histórico…"
+          aria-label="Buscar no histórico"
+        />
+        <div class="filters" aria-label="Filtrar por tipo de registro">
+          <button class="filter active" type="button" data-filter="todos">Todos</button>
+          <button class="filter" type="button" data-filter="conversa">Conversa</button>
+          <button class="filter" type="button" data-filter="proposta">Projeto</button>
+          <button class="filter" type="button" data-filter="teste">Teste</button>
+          <button class="filter" type="button" data-filter="sistema">Sistema</button>
+        </div>
+      </section>
+
+      <section aria-label="Linha do tempo das mensagens">
+        <div class="timeline" id="timeline">
+          <article class="entry" data-kind="teste" data-author="Pedro Burgos" data-phase="preparacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">PB</span>
+                <span><strong>Pedro Burgos</strong><small class="role">participante</small></span>
+              </div>
+              <time datetime="2026-07-31T07:00:41-03:00">07:00:41</time>
+            </header>
+            <div class="entry-body">
+              <p><strong>@Oficina Codex</strong> teste de roteamento. Responda somente: grupo-1 pronto.</p>
+            </div>
+            <footer class="entry-foot">
+              <span class="tag">teste</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785492041032079" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <article class="entry" data-kind="teste" data-author="Oficina Codex" data-phase="preparacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">OC</span>
+                <span><strong>Oficina Codex</strong><small class="role">app</small></span>
+              </div>
+              <time datetime="2026-07-31T07:00:46-03:00">07:00:46</time>
+            </header>
+            <div class="entry-body"><p>grupo-1 pronto.</p></div>
+            <footer class="entry-foot">
+              <span class="tag">teste · editado</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785492046894509" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <article class="entry" data-kind="sistema" data-author="Pedro Burgos" data-phase="preparacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">PB</span>
+                <span><strong>Pedro Burgos</strong><small class="role">participante</small></span>
+              </div>
+              <time datetime="2026-07-31T11:24:21-03:00">11:24:21</time>
+            </header>
+            <div class="entry-body">
+              <p>Tornou o canal público. Qualquer membro do workspace pode vê-lo e entrar nele.</p>
+            </div>
+            <footer class="entry-foot">
+              <span class="tag">sistema</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785507861351559" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <article class="entry" data-kind="conversa" data-author="jehh.vasconcelosabreu" data-phase="preparacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">JV</span>
+                <span><strong>jehh.vasconcelosabreu</strong><small class="role">participante</small></span>
+              </div>
+              <time datetime="2026-07-31T11:32:29-03:00">11:32:29</time>
+            </header>
+            <div class="entry-body"><p>Oi gente</p></div>
+            <footer class="entry-foot">
+              <span class="tag">conversa</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785508349985139" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <h2 class="phase" data-phase="ideacao">Ideação do produto</h2>
+
+          <article class="entry" data-kind="proposta" data-author="jehh.vasconcelosabreu" data-phase="ideacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">JV</span>
+                <span><strong>jehh.vasconcelosabreu</strong><small class="role">participante</small></span>
+              </div>
+              <time datetime="2026-07-31T11:42:11-03:00">11:42:11</time>
+            </header>
+            <div class="entry-body">
+              <p>
+                <strong>@Oficina Codex</strong> Usar a API do Datajud, do Conselho Nacional de
+                Justiça (CNJ), para obter os processos de assunto “violência doméstica” com base
+                na indexação de assuntos usados pelas Tabelas Processuais Unificadas do CNJ. A
+                ideia é que esses processos sejam reproduzidos da seguinte forma:
+              </p>
+              <p>
+                <strong>Mapa por comarcas:</strong> a distribuição geográfica adotada pelo
+                Judiciário é distinta da distribuição usada pelo IBGE, que é feito em comarcas.
+                Visualizar o espalhamento dos processos (novos, pendentes, julgados e baixados,
+                com a possibilidade de aplicar esses filtros) por comarca, dentro do mapa do
+                Brasil. Gerar também um mapa de calor.
+              </p>
+            </div>
+            <footer class="entry-foot">
+              <span><span class="tag">proposta</span> &nbsp; 👀 1</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785508931033299" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <article class="entry" data-kind="proposta" data-author="Oficina Codex" data-phase="ideacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">OC</span>
+                <span><strong>Oficina Codex</strong><small class="role">app</small></span>
+              </div>
+              <time datetime="2026-07-31T11:43:12-03:00">11:43:12</time>
+            </header>
+            <div class="entry-body">
+              <p>
+                Registrei a proposta no <code>BRIEF.md</code>. O projeto permanece em
+                <code>IDEATION</code>; nenhuma construção ou consulta à API foi iniciada.
+              </p>
+              <p>Para fechar o brief, precisamos consolidar:</p>
+              <ul>
+                <li>período e frequência de atualização;</li>
+                <li>Brasil inteiro ou um tribunal/estado piloto;</li>
+                <li>representação de comarcas que abrangem vários municípios;</li>
+                <li>definição de “novos”, “pendentes”, “julgados” e “baixados” conforme os campos do DataJud.</li>
+              </ul>
+              <p>
+                Por segurança, o MVP trabalhará apenas com números agregados por comarca, sem
+                reproduzir processos individuais ou dados pessoais.
+              </p>
+            </div>
+            <footer class="entry-foot">
+              <span class="tag">proposta · editado</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785508992637439" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <h2 class="phase" data-phase="consolidacao">Consolidação do escopo</h2>
+
+          <article class="entry" data-kind="proposta" data-author="jehh.vasconcelosabreu" data-phase="consolidacao">
+            <header class="entry-head">
+              <div class="identity">
+                <span class="avatar" aria-hidden="true">JV</span>
+                <span><strong>jehh.vasconcelosabreu</strong><small class="role">participante</small></span>
+              </div>
+              <time datetime="2026-07-31T11:56:25-03:00">11:56:25</time>
+            </header>
+            <div class="entry-body">
+              <p>
+                <strong>@Oficina Codex</strong> A atualização pode ser mensal. Gostaríamos de
+                tentar para o Brasil inteiro. Representação deve ser por comarcas, a princípio.
+                Definição de “novos”, “pendentes”, “julgados” e “baixados” conforme o que estiver
+                especificado no Datajud.
+              </p>
+            </div>
+            <footer class="entry-foot">
+              <span class="tag">proposta</span>
+              <a class="permalink" href="https://codesinfo-abraji.slack.com/archives/C0BM0J5ADHC/p1785509785798349" target="_blank" rel="noreferrer">Abrir no Slack ↗</a>
+            </footer>
+          </article>
+
+          <p class="empty" id="empty">Nenhum registro corresponde aos filtros atuais.</p>
+        </div>
+
+        <p class="source-note">
+          Fonte: conteúdo textual exibido no canal <strong>#oficina-grupo-1</strong> do workspace
+          Codesinfo–Abraji. Mensagens marcadas como editadas refletem o texto atual visível no
+          Slack. Coleta realizada em 14 de agosto de 2026.
+        </p>
+      </section>
+
+      <aside class="side" aria-label="Síntese do histórico">
+        <div class="side-inner">
+          <section class="card">
+            <h2>Decisões registradas</h2>
+            <ul class="decision-list">
+              <li>Fonte planejada: API Pública do DataJud/CNJ.</li>
+              <li>Recorte temático: processos de violência doméstica segundo as TPU.</li>
+              <li>Abrangência pretendida: Brasil inteiro.</li>
+              <li>Unidade territorial: comarca.</li>
+              <li>Indicadores: novos, pendentes, julgados e baixados.</li>
+              <li>Visualizações: mapa por comarca e mapa de calor.</li>
+              <li>Atualização: mensal.</li>
+              <li>Somente dados agregados, sem processos individuais ou dados pessoais.</li>
+            </ul>
+          </section>
+
+          <section class="card status">
+            <h2>Estado ao fim do recorte</h2>
+            <strong>IDEATION</strong>
+            <p>Nenhuma construção ou consulta à API havia sido iniciada até a última mensagem registrada.</p>
+          </section>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Hackaton Codesinfo · 21º Congresso da Abraji · #oficina-grupo-1
+    </footer>
+
+    <script>
+      (() => {
+        const search = document.querySelector("#search");
+        const filters = [...document.querySelectorAll(".filter")];
+        const entries = [...document.querySelectorAll(".entry")];
+        const phases = [...document.querySelectorAll(".phase")];
+        const empty = document.querySelector("#empty");
+        let activeFilter = "todos";
+
+        const normalize = (value) =>
+          value
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+
+        const update = () => {
+          const query = normalize(search.value.trim());
+          let visibleCount = 0;
+
+          entries.forEach((entry) => {
+            const matchesKind = activeFilter === "todos" || entry.dataset.kind === activeFilter;
+            const matchesQuery = !query || normalize(entry.textContent).includes(query);
+            entry.hidden = !(matchesKind && matchesQuery);
+            if (!entry.hidden) visibleCount += 1;
+          });
+
+          phases.forEach((phase) => {
+            phase.hidden = !entries.some(
+              (entry) => entry.dataset.phase === phase.dataset.phase && !entry.hidden,
+            );
+          });
+
+          empty.style.display = visibleCount ? "none" : "block";
+        };
+
+        filters.forEach((button) => {
+          button.addEventListener("click", () => {
+            activeFilter = button.dataset.filter;
+            filters.forEach((item) => item.classList.toggle("active", item === button));
+            update();
+          });
+        });
+
+        search.addEventListener("input", update);
+      })();
+    </script>
+  </body>
+</html>
